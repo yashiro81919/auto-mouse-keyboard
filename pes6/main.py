@@ -81,14 +81,14 @@ def go_training():
         pydirectinput.press('n')
         pydirectinput.press('n')
         pydirectinput.press('n')
-        pyautogui.sleep(0.5)
+        pyautogui.sleep(0.25)
         pydirectinput.press('k')
-        pyautogui.sleep(0.5)
+        pyautogui.sleep(0.25)
         pydirectinput.press('a')
         pydirectinput.press('a')
         pydirectinput.press('a')
         pydirectinput.press('a')
-        pyautogui.sleep(0.5)
+        pyautogui.sleep(0.25)
         pydirectinput.press('n')
         next_step()
     except pyautogui.ImageNotFoundException:
@@ -105,7 +105,7 @@ def go_match():
     except pyautogui.ImageNotFoundException:
         print('press A to move to game')
         pydirectinput.press('a')
-        pyautogui.sleep(0.5)
+        pyautogui.sleep(0.25)
         go_match()
 
 
@@ -117,7 +117,7 @@ def next_step():
     except pyautogui.ImageNotFoundException:
         print('press N to proceed to next stage')
         pydirectinput.press('n')
-        pyautogui.sleep(0.5)
+        pyautogui.sleep(0.25)
         check_inseason() # if it is in season, go to next match
         check_cup() # check if it is cup, then update score
         check_negotiations() # half or end season, need to stop program
@@ -138,7 +138,7 @@ def end_game():
             cup_flag = False            
         with pyautogui.hold('alt'):
             pyautogui.press('tab')
-        pyautogui.sleep(0.5)
+        pyautogui.sleep(0.25)
         pydirectinput.press('b') # resume game
         wait_end()
     except pyautogui.ImageNotFoundException:
