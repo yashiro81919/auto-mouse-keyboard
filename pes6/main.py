@@ -138,7 +138,7 @@ def end_game():
             cup_flag = False            
         with pyautogui.hold('alt'):
             pyautogui.press('tab')
-        pyautogui.sleep(1)
+        pyautogui.sleep(0.5)
         pydirectinput.press('b') # resume game
         wait_end()
     except pyautogui.ImageNotFoundException:
@@ -156,7 +156,7 @@ def wait_end():
             pyautogui.click(x, y)
             next_step()            
         except pyautogui.ImageNotFoundException:
-            pyautogui.sleep(6)
+            pyautogui.sleep(8)
             pydirectinput.press('b')
             print('not in end game menu')
             wait_end()         
