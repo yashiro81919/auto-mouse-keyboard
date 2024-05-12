@@ -156,7 +156,7 @@ def wait_end():
             pyautogui.click(x, y)
             next_step()            
         except pyautogui.ImageNotFoundException:
-            pyautogui.sleep(10)
+            pyautogui.sleep(12)
             pydirectinput.press('b')
             print('not in end game menu')
             wait_end()         
