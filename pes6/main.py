@@ -6,7 +6,7 @@ off_flag = False
 
 def check_cup():
     try:
-        x, y = pyautogui.locateCenterOnScreen('cupflag.png')
+        x, y = pyautogui.locateCenterOnScreen('cupflag.png', grayscale=True)
         pyautogui.click(x, y)
         print('it is cup and home game')
         return True
@@ -16,7 +16,7 @@ def check_cup():
 
 def check_negotiations():
     try:
-        x, y = pyautogui.locateCenterOnScreen('negotiations.png')
+        x, y = pyautogui.locateCenterOnScreen('negotiations.png', grayscale=True)
         pyautogui.click(x, y)
         print('it is in negotiations')
         return True
@@ -26,7 +26,7 @@ def check_negotiations():
 
 def check_offseason():
     try:
-        x, y = pyautogui.locateCenterOnScreen('offseason.png')
+        x, y = pyautogui.locateCenterOnScreen('offseason.png', grayscale=True)
         pyautogui.click(x, y)
         print('it is in offseason')
         return True
@@ -36,7 +36,7 @@ def check_offseason():
 
 def check_retired():
     try:
-        x, y = pyautogui.locateCenterOnScreen('retired.png')
+        x, y = pyautogui.locateCenterOnScreen('retired.png', grayscale=True)
         pyautogui.click(x, y)
         print('have players retired')
         return True
@@ -46,7 +46,7 @@ def check_retired():
 
 def check_preseason():
     try:
-        x, y = pyautogui.locateCenterOnScreen('preseason.png')
+        x, y = pyautogui.locateCenterOnScreen('preseason.png', grayscale=True)
         pyautogui.click(x, y)
         print('it is preseason')
         return True
@@ -56,7 +56,7 @@ def check_preseason():
 
 def check_inseason():
     try:
-        x, y = pyautogui.locateCenterOnScreen('inseason.png')
+        x, y = pyautogui.locateCenterOnScreen('inseason.png', grayscale=True)
         pyautogui.click(x, y)
         print('it is in season')        
         return True
@@ -66,7 +66,7 @@ def check_inseason():
 
 def check_next_match():
     try:
-        x, y = pyautogui.locateCenterOnScreen('tonextmatch.png')
+        x, y = pyautogui.locateCenterOnScreen('tonextmatch.png', grayscale=True)
         pyautogui.click(x, y)
         print('cursor is in to_next_match')
         return True
@@ -77,9 +77,9 @@ def check_next_match():
 def check_ingame():
     try:
         pydirectinput.press('b') # pause game
-        x, y = pyautogui.locateCenterOnScreen('match.png')
+        x, y = pyautogui.locateCenterOnScreen('match.png', grayscale=True)
         pyautogui.click(x, y)
-        print('in the game')
+        print('it is in the match')
         return True
     except pyautogui.ImageNotFoundException:
         return False   
@@ -87,22 +87,18 @@ def check_ingame():
 
 def check_training():
     try:
-        x, y = pyautogui.locateCenterOnScreen('totraining.png')
+        x, y = pyautogui.locateCenterOnScreen('totraining.png', grayscale=True)
         pyautogui.click(x, y)
         print('cursor is in training')
         return True
     except pyautogui.ImageNotFoundException:
-        return False     
+        return False
 
 
 def job():
     global off_flag
     global cup_flag
-    if check_inseason(): # if it is in season, go to next match
-        off_flag = True
-        move_next_match()           
-        pyautogui.sleep(0.15)
-    elif check_ingame(): # if it is in game, then end game
+    if check_ingame(): # if it is in game, then end game
         end_game()
         print('waiting for end game screen')
         pyautogui.sleep(10) # game take a little bit long time to terminate
@@ -119,6 +115,8 @@ def job():
         pyautogui.sleep(0.15)
     elif check_retired(): # if have players retired, screenshot
         pyautogui.hotkey('win', 'prntscrn')
+        pyautogui.sleep(2)
+        pydirectinput.press('n')
         pyautogui.sleep(0.15)
     elif check_preseason(): # if it is preseason, cancel and proceed
         pydirectinput.press('k')
@@ -145,7 +143,11 @@ def job():
                 pydirectinput.press('n')               
             else:
                 print('press D to move to training')
-                pydirectinput.press('d')                
+                pydirectinput.press('d')
+        pyautogui.sleep(0.15)
+    elif check_inseason(): # if it is in season, go to next match
+        off_flag = True
+        move_next_match()           
         pyautogui.sleep(0.15)
     else: # press N to proceed in other screens
         print('press N to proceed to next stage')
@@ -164,11 +166,11 @@ def move_next_match():
 
 def end_game():
     try:
-        x, y = pyautogui.locateCenterOnScreen('matchover.png')
+        x, y = pyautogui.locateCenterOnScreen('matchover.png', grayscale=True)
         pyautogui.click(x, y)
         global cup_flag
         if cup_flag:
-            x, y = pyautogui.locateCenterOnScreen('updatescore.png')
+            x, y = pyautogui.locateCenterOnScreen('updatescore.png', grayscale=True)
             pyautogui.click(x, y)
             print('update score for cup')
             cup_flag = False            
