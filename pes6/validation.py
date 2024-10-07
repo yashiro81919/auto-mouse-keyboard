@@ -6,7 +6,7 @@ conn = sqlite3.connect(DB_FILE)
 cursor = conn.cursor()
 
 # validation nation for all teams
-cursor.execute("select count(*), club from t_player where nation = 'england' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='england' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -18,7 +18,7 @@ for row in rows:
         print(row[1] + ' should have at least 1 england player')
 
 
-cursor.execute("select count(*), club from t_player where nation = 'spain' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='spain' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -30,7 +30,7 @@ for row in rows:
         print(row[1] + ' should have at least 1 spain player')        
 
 
-cursor.execute("select count(*), club from t_player where nation = 'italy' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='italy' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -42,7 +42,7 @@ for row in rows:
         print(row[1] + ' should have at least 1 italy player')    
 
 
-cursor.execute("select count(*), club from t_player where nation = 'france' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='france' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -54,41 +54,27 @@ for row in rows:
         print(row[1] + ' should have at least 1 france player')
 
 
-cursor.execute("select count(*), club from t_player where nation = 'netherlands' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='netherlands' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
     if row[1] in ('N1', 'N2') and row[0] != 11:
         print(row[1] + ' should have 11 netherlands players')
-    elif row[1] not in ('Z', 'N', 'N1', 'N2') and row[0] > 2:
-        print(row[1] + ' should have less than 3 netherlands players')
-    elif row[1] not in ('Z', 'N', 'N1', 'N2') and row[0] < 1:
-        print(row[1] + ' should have at least 1 netherlands player')
+    elif row[1] not in ('Z', 'N', 'N1', 'N2') and row[0] > 1:
+        print(row[1] + ' should have less than 2 netherlands players')
 
 
-cursor.execute("select count(*), club from t_player where nation = 'germany' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='germany' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
-    if row[1] in ('G1') and row[0] != 11:
+    if row[1] in ('G1', 'G2') and row[0] != 11:
         print(row[1] + ' should have 11 germany players')
-    elif row[1] not in ('Z', 'N', 'G1') and row[0] > 2:
-        print(row[1] + ' should have less than 3 germany players')
-    elif row[1] not in ('Z', 'N', 'G1') and row[0] < 1:
-        print(row[1] + ' should have at least 1 germany player')
+    elif row[1] not in ('Z', 'N', 'G1', 'G2') and row[0] > 1:
+        print(row[1] + ' should have less than 2 germany players')
 
 
-cursor.execute("select count(*), club from t_player where nation = 'sweden' group by club")
-rows = cursor.fetchall()
-
-for row in rows:
-    if row[1] in ('W1') and row[0] != 11:
-        print(row[1] + ' should have 11 sweden players')
-    elif row[1] not in ('Z', 'N', 'W1') and row[0] > 1:
-        print(row[1] + ' should have less than 2 sweden players')
-
-
-cursor.execute("select count(*), club from t_player where nation = 'brazil' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='brazil' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -100,7 +86,7 @@ for row in rows:
         print(row[1] + ' should have at least 1 brazil player')
 
 
-cursor.execute("select count(*), club from t_player where nation = 'portugal' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='portugal' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -110,7 +96,7 @@ for row in rows:
         print(row[1] + ' should have less than 2 portugal players')
 
 
-cursor.execute("select count(*), club from t_player where nation = 'argentina' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='argentina' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -120,7 +106,7 @@ for row in rows:
         print(row[1] + ' should have less than 2 argentina players')
 
 
-cursor.execute("select count(*), club from t_player where nation = 'czech' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='czech' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -130,7 +116,7 @@ for row in rows:
         print(row[1] + ' should have less than 2 czech players')
 
 
-cursor.execute("select count(*), club from t_player where nation = 'korea' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='korea' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -140,7 +126,7 @@ for row in rows:
         print(row[1] + ' should have less than 2 korea players')
 
 
-cursor.execute("select count(*), club from t_player where nation = 'japan' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='japan' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -150,7 +136,7 @@ for row in rows:
         print(row[1] + ' should have less than 2 japan players')
 
 
-cursor.execute("select count(*), club from t_player where nation in ('south africa', 'senegal', 'nigeria', 'ghana', 'egypt', 'cote', 'cameroon', 'leone', 'algeria') group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation in ('south africa', 'senegal', 'nigeria', 'ghana', 'egypt', 'cote', 'cameroon', 'leone', 'algeria') group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -160,12 +146,23 @@ for row in rows:
         print(row[1] + ' should have less than 2 african players')
 
 
-cursor.execute("select count(*), club, nation from t_player where nation in ('south africa', 'senegal', 'nigeria', 'ghana', 'egypt', 'cote', 'cameroon', 'leone', 'algeria', 'ireland', 'denmark', 'turkey', 'croatia', 'usa', 'poland', 'romania', 'serbia', 'australia') group by club, nation")
+cursor.execute("select count(*), club, nation from t_player where nation in ('south africa', 'senegal', 'nigeria', 'ghana', 'egypt', 'cote', 'cameroon', 'leone', 'algeria', 'ireland', 'denmark', 'turkey', 'croatia', 'usa', 'poland', 'romania', 'serbia', 'australia', 'norway') group by club, nation")
 rows = cursor.fetchall()
 
 for row in rows:
     if row[1] not in ('Z', 'N') and row[0] > 1:
         print(row[1] + ' should have less than 2 ' + row[2] + ' players')
+
+
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where nation='sweden' group by club) b on a.club = b.club")
+rows = cursor.fetchall()
+
+for row in rows:
+    if row[1] not in ('Z', 'N') and row[0] > 2:
+        print(row[1] + ' should have less than 3 sweden players')
+    elif row[1] not in ('Z', 'N') and row[0] < 1:
+        print(row[1] + ' should have at least 1 sweden player')     
+
 
 # validate number of total players
 cursor.execute("select club, count(*) from t_player group by club")
@@ -176,7 +173,7 @@ for row in rows:
         print(row[0] + ' should have 26 players')
 
 # validate C level players
-cursor.execute("select count(*), club from t_player where level = 'C' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where level = 'C' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -184,7 +181,7 @@ for row in rows:
         print(row[1] + ' should have 4 or 5 level C players')
 
 # validate C injury players
-cursor.execute("select count(*), club from t_player where injury = 'C' group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where injury = 'C' group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
@@ -194,7 +191,7 @@ for row in rows:
         print(row[1] + ' should have at least 1 injury C player')
 
 # validate A level players
-cursor.execute("select count(*), club from t_player where level = 'A' and role not in ('GK') group by club")
+cursor.execute("select ifnull(b.num, 0), a.club from (select club from t_player group by club) a left join (select count(*) num, club from t_player where level = 'A' and role not in ('GK') group by club) b on a.club = b.club")
 rows = cursor.fetchall()
 
 for row in rows:
