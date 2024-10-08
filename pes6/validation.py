@@ -80,9 +80,11 @@ rows = cursor.fetchall()
 for row in rows:
     if row[1] in ('B1') and row[0] != 11:
         print(row[1] + ' should have 11 brazil players')
+    elif row[1] in ('A1') and row[0] > 0:
+        print(row[1] + ' should have no any brazil player')        
     elif row[1] not in ('Z', 'N', 'B1') and row[0] > 2:
         print(row[1] + ' should have less than 3 brazil players')
-    elif row[1] not in ('Z', 'N', 'B1') and row[0] < 1:
+    elif row[1] not in ('Z', 'N', 'B1', 'A1') and row[0] < 1:
         print(row[1] + ' should have at least 1 brazil player')
 
 
@@ -102,6 +104,8 @@ rows = cursor.fetchall()
 for row in rows:
     if row[1] in ('A1') and row[0] != 11:
         print(row[1] + ' should have 11 argentina players')
+    elif row[1] in ('B1') and row[0] > 0:
+        print(row[1] + ' should have no any argentina player')           
     elif row[1] not in ('Z', 'N', 'A1') and row[0] > 1:
         print(row[1] + ' should have less than 2 argentina players')
 
@@ -122,6 +126,8 @@ rows = cursor.fetchall()
 for row in rows:
     if row[1] in ('K1') and row[0] != 11:
         print(row[1] + ' should have 11 korea players')
+    elif row[1] in ('J1') and row[0] > 0:
+        print(row[1] + ' should have no any korea player')        
     elif row[1] not in ('Z', 'N', 'K1') and row[0] > 1:
         print(row[1] + ' should have less than 2 korea players')
 
@@ -132,6 +138,8 @@ rows = cursor.fetchall()
 for row in rows:
     if row[1] in ('J1') and row[0] != 11:
         print(row[1] + ' should have 11 japan players')
+    elif row[1] in ('K1') and row[0] > 0:
+        print(row[1] + ' should have no any japan player')        
     elif row[1] not in ('Z', 'N', 'J1') and row[0] > 1:
         print(row[1] + ' should have less than 2 japan players')
 
